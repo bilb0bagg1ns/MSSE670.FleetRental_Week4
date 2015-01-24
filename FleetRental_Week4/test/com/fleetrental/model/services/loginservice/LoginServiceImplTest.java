@@ -1,6 +1,5 @@
 package com.fleetrental.model.services.loginservice;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import com.fleetrental.model.business.exception.ServiceLoadException;
@@ -18,18 +17,22 @@ public class LoginServiceImplTest extends TestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		serviceFactory = ServiceFactory.getInstance();
 
-		customer = new Customer ("Simpson", "Homer", "homer@duff.com", "duff", "619.111.1234","619.111.1234");
-		
+		customer = new Customer("Simpson", "Homer", "homer@duff.com", "duff",
+				"619.111.1234", "619.111.1234");
+
 		rentalComposite.setCustomer(customer);
 	}
 
 	/**
-	 * Test method for {@link com.fleetrental.model.services.LoginService.LoginServiceImpl#authenticateCustomer(com.fleetrental.model.domain.Customer)}.
+	 * Test method for
+	 * {@link com.fleetrental.model.services.LoginService.LoginServiceImpl#authenticateCustomer(com.fleetrental.model.domain.Customer)}
+	 * .
 	 */
 	public final void testAuthenticateCustomer() {
 
@@ -42,9 +45,10 @@ public class LoginServiceImplTest extends TestCase {
 		//
 		ILoginService loginService;
 		try {
-			loginService = (ILoginService)serviceFactory.getService(ILoginService.NAME);
-			Assert.assertTrue(loginService.authenticateCustomer(rentalComposite));
-	        System.out.println("testAuthenticateCustomer PASSED");			
+			loginService = (ILoginService) serviceFactory
+					.getService(ILoginService.NAME);
+			assertTrue(loginService.authenticateCustomer(rentalComposite));
+			System.out.println("testAuthenticateCustomer PASSED");
 		} catch (ServiceLoadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,26 +59,27 @@ public class LoginServiceImplTest extends TestCase {
 			fail("LoginException");
 
 		}
-		
 
 		//
 		// THIS TO ILLUSTRATE THAT YOU BY CASTING TO AN IMPL AND THE METHOD
-        // VISIBILITY RULES THAT GET IMPOSED!!
-        //
+		// VISIBILITY RULES THAT GET IMPOSED!!
+		//
 		// Here we are casting Factory output to LoginServiceImpl, which
 		// means that loginServiceImpl will see not only methods declared in
 		// the interface and implemented by LoginServiceImpl but also any
 		// other additional public methods declared in LoginServiceImpl
 		// but *not* private methods!!
 		//
-		// Good practice is to limit the impl to the methods declared in the interface and
+		// Good practice is to limit the impl to the methods declared in the
+		// interface and
 		// additional methods(if really needed) be declared as private!
 		//
-	
+
 		try {
-			LoginServiceImpl loginServiceImpl = (LoginServiceImpl)serviceFactory.getService(ILoginService.NAME);
-			Assert.assertTrue(loginServiceImpl.authenticateCustomer(rentalComposite));
-	        System.out.println("testAuthenticateCustomer PASSED");			
+			LoginServiceImpl loginServiceImpl = (LoginServiceImpl) serviceFactory
+					.getService(ILoginService.NAME);
+			assertTrue(loginServiceImpl.authenticateCustomer(rentalComposite));
+			System.out.println("testAuthenticateCustomer PASSED");
 		} catch (ServiceLoadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
